@@ -117,9 +117,112 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
-console.log('Working!');
-},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"setup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LEVEL = exports.CLASS_LIST = exports.OBJECT_TYPE = exports.DIRECTIONS = exports.CELL_SIZE = exports.GRID_SIZE = void 0;
+var GRID_SIZE = 20;
+exports.GRID_SIZE = GRID_SIZE;
+var CELL_SIZE = 20;
+exports.CELL_SIZE = CELL_SIZE;
+var DIRECTIONS = {
+  ArrowLeft: {
+    code: 37,
+    movement: -1,
+    rotation: 180 //This Rotates pacman to go the oppsite direction
+
+  },
+  ArrowUp: {
+    code: 38,
+    movement: -GRID_SIZE,
+    rotation: 270
+  },
+  ArrowRight: {
+    code: 39,
+    movement: 1,
+    rotation: 0
+  },
+  ArrowDown: {
+    code: 40,
+    movement: GRID_SIZE,
+    rotation: 90
+  }
+};
+exports.DIRECTIONS = DIRECTIONS;
+var OBJECT_TYPE = {
+  BLANK: 'blank',
+  //the structure
+  WALL: 'wall',
+  //the structure
+  DOT: 'dot',
+  //the structure
+  BLINKY: 'blinky',
+  //Ghosts
+  PINKY: 'pinky',
+  //Ghosts
+  INKY: 'inky',
+  //Ghosts
+  CLYDE: 'clyde',
+  //Ghosts
+  PILL: 'pill',
+  // the dots
+  PACMAN: 'pacman',
+  //pacman himsef
+  GHOST: 'ghost',
+  SCARED: 'scared',
+  //Scared ghosty
+  GHOSTLAIR: 'lair' //ghostlair??
+
+}; // Lookup array for classes
+
+exports.OBJECT_TYPE = OBJECT_TYPE;
+var CLASS_LIST = [//This is set up to work with the "level" object. Its set to the array number
+OBJECT_TYPE.BLANK, OBJECT_TYPE.WALL, OBJECT_TYPE.DOT, OBJECT_TYPE.BLINKY, OBJECT_TYPE.PINKY, OBJECT_TYPE.INKY, OBJECT_TYPE.CLYDE, OBJECT_TYPE.PILL, OBJECT_TYPE.PACMAN, OBJECT_TYPE.GHOSTLAIR]; // prettier-ignore
+
+exports.CLASS_LIST = CLASS_LIST;
+var LEVEL = [//This referes to the array above. 1 is blank, 2 is wall, etc. See the above. We reference the array above and put it here to build it out. 
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 1, 9, 9, 9, 9, 1, 2, 2, 2, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+exports.LEVEL = LEVEL;
+},{}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _setup = require("./setup");
+
+//DOM Elements-- What do DOM Document Object Model's do?
+//These are referencing Items in setup that were setup ahead of time so that we could work in the object
+var gameGrid = document.querySelector('#game');
+var scoreTable = document.querySelector('#score');
+var startButton = document.querySelector('#start-button'); //Game Constants
+
+var POWER_PILL_TIME = 10000; //This is 10 seconds, however it is written in milliseconds
+
+var GLOBAL_SPEED = 80; //global speed for the game loop??? also written in milliseconds... maybe how many times the functions run per millisecond
+//Initial setup. 
+
+var score = 0; //The game starts at 0 points
+
+var timer = null; //Currently there is no timer to reference so it is set to null
+
+var gameWin = false; // This triggers when the game wins
+
+var powerPillActive = false; //This is used when pacman actually eats the power-up pill
+
+var powerPillTimer = null; //This is so that he doesn't get stuck infinitely in power-up mode. This is the exit.
+//Functions to make the game actually work
+
+function gameOver(pacman, grid) {//Remembering how functions work, add in pacman, and the grid because things happen within the grid
+}
+
+function checkCollision(pacman, ghosts) {}
+
+function gameLoop(pacman, ghosts) {}
+
+function startGame() {//This does not require paramiters a game start running
+}
+},{"./setup":"setup.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
