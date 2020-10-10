@@ -36,3 +36,5 @@ function gameLoop(pacman, ghosts){
 function startGame(){//This does not require paramiters a game start running
 
 }
+
+
