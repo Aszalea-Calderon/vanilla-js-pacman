@@ -1,50 +1,81 @@
-//This is the gameboard class
+import { GRID_SIZE, CELL_SIZE, OBJECT_TYPE, CLASS_LIST } from './setup';
 
-import{GRID_SIZE, CELL_SIZE, OBJECT_TYPE, CLASS_LIST,}from './setup';
-
-class GameBoard{//This is a constructor function, it will be used to make things happen in the game
-  constructor(DOMGrid){//This will make things for us. 
+class GameBoard {
+  constructor(DOMGrid) {
     this.dotCount = 0;
     this.grid = [];
     this.DOMGrid = DOMGrid;
-  }//We need a method to call things
-  showGameStatus(gameWin){//Shows if you winning or not
+  }
+
+  showGameStatus(gameWin) {
+    // Create and show game win or game over
     const div = document.createElement('div');
     div.classList.add('game-status');
-    div.innerHTML=`${gameWin ? 'WIN!' : 'GAME OVER!'}`;
+    div.innerHTML = `${gameWin ? 'WIN!' : 'GAME OVER!'}`;
     this.DOMGrid.appendChild(div);
   }
 
-  createGrid(level){//This produces the level.
-    this.dotCount = 0;//This wipes out the old counter for dots and starts it over. 
-    this.grid=[];//this will be the array that is in the beginning
-    this.DOMGrid.innerHTML = '';//tHis wipes out all info in the DOM
-    this.DOMGrid.style.cssText = `grid-template-columns:repeat(${GRID_SIZE}, ${CELL_SIZE}px)`;
+  createGrid(level) {
+    this.dotCount = 0;
+    this.grid = [];
+    this.DOMGrid.innerHTML = '';
+    // First set correct amount of columns based on Grid Size and Cell Size
+    this.DOMGrid.style.cssText = `grid-template-columns: repeat(${GRID_SIZE}, ${CELL_SIZE}px);`;
 
-    level.forEach((square) => {//This is a loop 
+    level.forEach((square) => {
       const div = document.createElement('div');
-      div.classList.add('square',CLASS_LIST[square]);//This goes to our list of items that we set up before, and references the index of the map we made before
-      div.style.cssText =`width: ${CELL_SIZE}px; height ${CELL_SIZE}px; `//This the style updates
+      div.classList.add('square', CLASS_LIST[square]);
+      div.style.cssText = `width: ${CELL_SIZE}px; height: ${CELL_SIZE}px;`;
       this.DOMGrid.appendChild(div);
       this.grid.push(div);
 
-      if(CLASS_LIST[square] === OBJECT_TYPE.DOT) this.dotCount++;
-    })
+      // Add dots
+      if (CLASS_LIST[square] === OBJECT_TYPE.DOT) this.dotCount++;
+    });
   }
 
-  addObject(pos, classes){//This is to add things, We add it to the object
+  addObject(pos, classes) {
     this.grid[pos].classList.add(...classes);
   }
 
-  removeObject(pos, classes){//This removes things
+  removeObject(pos, classes) {
     this.grid[pos].classList.remove(...classes);
   }
+  // Can have an arrow function here cause of this binding
+  objectExist = (pos, object) => {
+    return this.grid[pos].classList.contains(object);
+  };
 
-  objectExist(pos, object){
-  return this.grid[pos].classList.contains(object);}
-
-  rotateDiv(pos,deg){//This is used to rotate packman on the grid, pos is position, deg is degree of rotaion
-    this.grid[pos].style.transform = `rotate (${deg}deg)`;//${deg} is the parameter, deg is the css being applied
+  rotateDiv(pos, deg) {
+    this.grid[pos].style.transform = `rotate(${deg}deg)`;
   }
-  
+
+  moveCharacter(character) {
+    if (character.shouldMove()) {
+      const { nextMovePos, direction } = character.getNextMove(
+        this.objectExist.bind(this)
+      );
+      const { classesToRemove, classesToAdd } = character.makeMove();
+
+      if (character.rotation && nextMovePos !== character.pos) {
+        // Rotate
+        this.rotateDiv(nextMovePos, character.dir.rotation);
+        // Rotate the previous div back
+        this.rotateDiv(character.pos, 0);
+      }
+
+      this.removeObject(character.pos, classesToRemove);
+      this.addObject(nextMovePos, classesToAdd);
+
+      character.setNewPos(nextMovePos, direction);
+    }
+  }
+
+  static createGameBoard(DOMGrid, level) {
+    const board = new this(DOMGrid);
+    board.createGrid(level);
+    return board;
+  }
 }
+
+export default GameBoard;
