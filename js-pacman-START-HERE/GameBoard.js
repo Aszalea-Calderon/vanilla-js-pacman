@@ -42,7 +42,7 @@ class GameBoard {
     this.grid[pos].classList.remove(...classes);
   }
   // Can have an arrow function here cause of this binding
-  objectExist = (pos, object) => {
+  objectExist(pos, object) {
     return this.grid[pos].classList.contains(object);
   };
 

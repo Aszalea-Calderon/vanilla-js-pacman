@@ -20,3 +20,4 @@ export function randomMovement(position, direction, objectExist){
   }
   return {nextMovePos, direction: dir};
 }
+// export default ghostmoves; This does not need to be exported

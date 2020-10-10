@@ -1,8 +1,10 @@
 
 import{LEVEL, OBJECT_TYPE}from './setup';
+import{ randomMovement } from './ghostmoves';
 //Classes
 import GameBoard from './GameBoard';
-import Pacman from './Packman';
+import Pacman from './Pacman';
+import Ghost from './Ghost';
 
 //DOM Elements-- What do DOM Document Object Model's do?
 
@@ -28,17 +30,45 @@ let powerPillActive = false;//This is used when pacman actually eats the power-u
 let powerPillTimer = null;//This is so that he doesn't get stuck infinitely in power-up mode. This is the exit.
 
 //Functions to make the game actually work
-function gameOver(pacman, grid){//Remembering how functions work, add in pacman, and the grid because things happen within the grid
 
+
+function gameOver(pacman, grid){//Remembering how functions work, add in pacman, and the grid because things happen within the grid
+  document.removeEventListener('keydown', (e) => pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard))); 
+
+  gameBoard.showGameStatus(gameWin);
+
+  clearInterval(timer);
+
+  startButton.classList.remove('hide')
 }
 
 function checkCollision(pacman, ghosts){
+  const collidedGhost = ghosts.find((ghost) => pacman.pos === ghost.pos);
+
+  if(collidedGhost){
+    if(pacman.powerPill){
+      gameBoard.removeObject(collidedGhost.pos[
+        OBJECT_TYPE.GHOST, 
+        OBJECT_TYPE.SCARED,
+        collidedGhost.name
+      ]);
+      collidedGhost.pos = collidedGhost.startPos;
+      score += 100;
+    } else {
+      gameBoard.removeObject(pacman.pos, [OBJECT_TYPE.PACMAN]);
+      gameBoard.rotateDiv(pacman.pos, 0);
+      gameOver(pacman, gameGrid);
+    }
+  }
 
 }
 
 function gameLoop(pacman, ghosts){
   gameBoard.moveCharacter(pacman);
+  checkCollision(pacman, ghosts);
 
+  ghosts.forEach((ghost) => gameBoard.moveCharacter(ghost));
+  checkCollision(pacman, ghosts);
 }
 
 function startGame(){//This does not require paramiters a game start running\
@@ -53,9 +83,16 @@ function startGame(){//This does not require paramiters a game start running\
   const pacman = new Pacman (2,287);
   gameBoard.addObject(287,[OBJECT_TYPE.PACMAN]);
   document.addEventListener('keydown', (e) =>
-  pacman.handleKeyInput(e, gameBoard.objectExist) );
+  pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard)));
 
-  timer = setInterval(() => gameLoop(pacman), GLOBAL_SPEED);
+  const ghosts = [
+    new Ghost(5,188, randomMovement, OBJECT_TYPE.BLINKY),
+    new Ghost(4,209, randomMovement, OBJECT_TYPE.PINKY),
+    new Ghost(3,230, randomMovement, OBJECT_TYPE.INKY),
+    new Ghost(2,251, randomMovement, OBJECT_TYPE.CLYDE),
+  ]
+
+  timer = setInterval(() => gameLoop(pacman,ghosts), GLOBAL_SPEED);
 }
 
 //initalize Game
