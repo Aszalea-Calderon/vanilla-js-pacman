@@ -1,23 +1,23 @@
-import {DIRECTIONS, OBJECT_TYPE}from './setup';
+import { DIRECTIONS, OBJECT_TYPE } from './setup';
 
-//Primitive random movement
-export function randomMovement(position, direction, objectExist){
+// Primitive random movement.
+export function randomMovement(position, direction, objectExist) {
   let dir = direction;
   let nextMovePos = position + dir.movement;
-  //Create an array from the directions object keys
+  // Create an array from the diretions objects keys
   const keys = Object.keys(DIRECTIONS);
 
-  while(
-    objectExist(nextMovePos, OBJECT_TYPE.WALL)||
+  while (
+    objectExist(nextMovePos, OBJECT_TYPE.WALL) ||
     objectExist(nextMovePos, OBJECT_TYPE.GHOST)
-  ){
-    //Get random key from the key array
-    const key = keys[Math.floor(Math.floor(Math.random() * keys.length))];
-    //Set next move
+  ) {
+    // Get a random key from that array
+    const key = keys[Math.floor(Math.random() * keys.length)];
+    // Set the new direction
     dir = DIRECTIONS[key];
-    //Set the next move
+    // Set the next move
     nextMovePos = position + dir.movement;
   }
-  return {nextMovePos, direction: dir};
+
+  return { nextMovePos, direction: dir };
 }
-// export default ghostmoves; This does not need to be exported

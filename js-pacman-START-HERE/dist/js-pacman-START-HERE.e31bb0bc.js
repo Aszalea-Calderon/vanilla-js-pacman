@@ -132,8 +132,7 @@ var DIRECTIONS = {
   ArrowLeft: {
     code: 37,
     movement: -1,
-    rotation: 180 //This Rotates pacman to go the oppsite direction
-
+    rotation: 180
   },
   ArrowUp: {
     code: 38,
@@ -154,37 +153,24 @@ var DIRECTIONS = {
 exports.DIRECTIONS = DIRECTIONS;
 var OBJECT_TYPE = {
   BLANK: 'blank',
-  //the structure
   WALL: 'wall',
-  //the structure
   DOT: 'dot',
-  //the structure
   BLINKY: 'blinky',
-  //Ghosts
   PINKY: 'pinky',
-  //Ghosts
   INKY: 'inky',
-  //Ghosts
   CLYDE: 'clyde',
-  //Ghosts
   PILL: 'pill',
-  // the dots
   PACMAN: 'pacman',
-  //pacman himsef
   GHOST: 'ghost',
   SCARED: 'scared',
-  //Scared ghosty
-  GHOSTLAIR: 'lair' //ghostlair??
-
+  GHOSTLAIR: 'lair'
 }; // Lookup array for classes
 
 exports.OBJECT_TYPE = OBJECT_TYPE;
-var CLASS_LIST = [//This is set up to work with the "level" object. Its set to the array number
-OBJECT_TYPE.BLANK, OBJECT_TYPE.WALL, OBJECT_TYPE.DOT, OBJECT_TYPE.BLINKY, OBJECT_TYPE.PINKY, OBJECT_TYPE.INKY, OBJECT_TYPE.CLYDE, OBJECT_TYPE.PILL, OBJECT_TYPE.PACMAN, OBJECT_TYPE.GHOSTLAIR]; // prettier-ignore
+var CLASS_LIST = [OBJECT_TYPE.BLANK, OBJECT_TYPE.WALL, OBJECT_TYPE.DOT, OBJECT_TYPE.BLINKY, OBJECT_TYPE.PINKY, OBJECT_TYPE.INKY, OBJECT_TYPE.CLYDE, OBJECT_TYPE.PILL, OBJECT_TYPE.PACMAN, OBJECT_TYPE.GHOSTLAIR]; // prettier-ignore
 
 exports.CLASS_LIST = CLASS_LIST;
-var LEVEL = [//This referes to the array above. 1 is blank, 2 is wall, etc. See the above. We reference the array above and put it here to build it out. 
-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 1, 9, 9, 9, 9, 1, 2, 2, 2, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+var LEVEL = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 1, 9, 9, 9, 9, 1, 2, 2, 2, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1, 2, 1, 9, 9, 9, 9, 1, 2, 1, 2, 1, 1, 1, 1, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 7, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 7, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 exports.LEVEL = LEVEL;
 },{}],"ghostmoves.js":[function(require,module,exports) {
 "use strict";
@@ -196,18 +182,18 @@ exports.randomMovement = randomMovement;
 
 var _setup = require("./setup");
 
-//Primitive random movement
+// Primitive random movement.
 function randomMovement(position, direction, objectExist) {
   var dir = direction;
-  var nextMovePos = position + dir.movement; //Create an array from the directions object keys
+  var nextMovePos = position + dir.movement; // Create an array from the diretions objects keys
 
   var keys = Object.keys(_setup.DIRECTIONS);
 
   while (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL) || objectExist(nextMovePos, _setup.OBJECT_TYPE.GHOST)) {
-    //Get random key from the key array
-    var key = keys[Math.floor(Math.floor(Math.random() * keys.length))]; //Set next move
+    // Get a random key from that array
+    var key = keys[Math.floor(Math.random() * keys.length)]; // Set the new direction
 
-    dir = _setup.DIRECTIONS[key]; //Set the next move
+    dir = _setup.DIRECTIONS[key]; // Set the next move
 
     nextMovePos = position + dir.movement;
   }
@@ -216,7 +202,7 @@ function randomMovement(position, direction, objectExist) {
     nextMovePos: nextMovePos,
     direction: dir
   };
-} // export default ghostmoves; This does not need to be exported
+}
 },{"./setup":"setup.js"}],"node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
@@ -422,7 +408,24 @@ var GameBoard = /*#__PURE__*/function () {
 
 var _default = GameBoard;
 exports.default = _default;
-},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js"}],"Pacman.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js"}],"node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+},{}],"Pacman.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -434,13 +437,30 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _setup = require("./setup");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Pacman = /*#__PURE__*/function () {
   function Pacman(speed, startPos) {
+    var _this = this;
+
     (0, _classCallCheck2.default)(this, Pacman);
+    (0, _defineProperty2.default)(this, "handleKeyInput", function (e, objectExist) {
+      var dir;
+
+      if (e.keyCode >= 37 && e.keyCode <= 40) {
+        dir = _setup.DIRECTIONS[e.key];
+      } else {
+        return;
+      }
+
+      var nextMovePos = _this.pos + dir.movement;
+      if (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL)) return;
+      _this.dir = dir;
+    });
     this.pos = startPos;
     this.speed = speed;
     this.dir = null;
@@ -452,7 +472,8 @@ var Pacman = /*#__PURE__*/function () {
   (0, _createClass2.default)(Pacman, [{
     key: "shouldMove",
     value: function shouldMove() {
-      if (!this.dir) return false;
+      // Don't move before a key is pressed
+      if (!this.dir) return;
 
       if (this.timer === this.speed) {
         this.timer = 0;
@@ -464,7 +485,7 @@ var Pacman = /*#__PURE__*/function () {
   }, {
     key: "getNextMove",
     value: function getNextMove(objectExist) {
-      var nextMovePos = this.pos + this.dir.movement;
+      var nextMovePos = this.pos + this.dir.movement; // Do we collide with a wall?
 
       if (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL) || objectExist(nextMovePos, _setup.OBJECT_TYPE.GHOSTLAIR)) {
         nextMovePos = this.pos;
@@ -490,29 +511,13 @@ var Pacman = /*#__PURE__*/function () {
     value: function setNewPos(nextMovePos) {
       this.pos = nextMovePos;
     }
-  }, {
-    key: "handleKeyInput",
-    value: function handleKeyInput(e, objectExist) {
-      var dir;
-
-      if (e.keyCode >= 37 && e.keyCode <= 40) {
-        //We might be able to add wasd and insert it here along with in the set up. Look at key codes when this is done and see if it plays nice.
-        dir = _setup.DIRECTIONS[e.key];
-      } else {
-        return;
-      }
-
-      var nextMovePos = this.pos + dir.movement;
-      if (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL)) return;
-      this.dir = dir;
-    }
   }]);
   return Pacman;
 }();
 
 var _default = Pacman;
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js"}],"Ghost.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/defineProperty":"node_modules/@babel/runtime/helpers/defineProperty.js","./setup":"setup.js"}],"Ghost.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -596,7 +601,17 @@ var Ghost = /*#__PURE__*/function () {
 
 var _default = Ghost;
 exports.default = _default;
-},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js","./ghostmoves":"ghostmoves.js"}],"index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js","./ghostmoves":"ghostmoves.js"}],"sounds/munch.wav":[function(require,module,exports) {
+module.exports = "/munch.50161df6.wav";
+},{}],"sounds/pill.wav":[function(require,module,exports) {
+module.exports = "/pill.d5173a33.wav";
+},{}],"sounds/game_start.wav":[function(require,module,exports) {
+module.exports = "/game_start.09b402f7.wav";
+},{}],"sounds/death.wav":[function(require,module,exports) {
+module.exports = "/death.1b6386ba.wav";
+},{}],"sounds/eat_ghost.wav":[function(require,module,exports) {
+module.exports = "/eat_ghost.09613325.wav";
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _setup = require("./setup");
@@ -609,40 +624,52 @@ var _Pacman = _interopRequireDefault(require("./Pacman"));
 
 var _Ghost = _interopRequireDefault(require("./Ghost"));
 
+var _munch = _interopRequireDefault(require("./sounds/munch.wav"));
+
+var _pill = _interopRequireDefault(require("./sounds/pill.wav"));
+
+var _game_start = _interopRequireDefault(require("./sounds/game_start.wav"));
+
+var _death = _interopRequireDefault(require("./sounds/death.wav"));
+
+var _eat_ghost = _interopRequireDefault(require("./sounds/eat_ghost.wav"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//Classes
-//DOM Elements-- What do DOM Document Object Model's do?
-//These are referencing Items in setup that were setup ahead of time so that we could work in the object
+// Classes
+// Sounds
+// Dom Elements
 var gameGrid = document.querySelector('#game');
 var scoreTable = document.querySelector('#score');
-var startButton = document.querySelector('#start-button'); //Game Constants
+var startButton = document.querySelector('#start-button'); // Game constants
 
-var POWER_PILL_TIME = 10000; //This is 10 seconds, however it is written in milliseconds
+var POWER_PILL_TIME = 10000; // ms
 
-var GLOBAL_SPEED = 80; //global speed for the game loop??? also written in milliseconds... maybe how many times the functions run per millisecond
+var GLOBAL_SPEED = 80; // ms
 
-var gameBoard = _GameBoard.default.createGameBoard(gameGrid, _setup.LEVEL); //Initial setup. 
+var gameBoard = _GameBoard.default.createGameBoard(gameGrid, _setup.LEVEL); // Initial setup
 
 
-var score = 0; //The game starts at 0 points
+var score = 0;
+var timer = null;
+var gameWin = false;
+var powerPillActive = false;
+var powerPillTimer = null; // --- AUDIO --- //
 
-var timer = null; //Currently there is no timer to reference so it is set to null
+function playAudio(audio) {
+  var soundEffect = new Audio(audio);
+  soundEffect.play();
+} // --- GAME CONTROLLER --- //
 
-var gameWin = false; // This triggers when the game wins
-
-var powerPillActive = false; //This is used when pacman actually eats the power-up pill
-
-var powerPillTimer = null; //This is so that he doesn't get stuck infinitely in power-up mode. This is the exit.
-//Functions to make the game actually work
 
 function gameOver(pacman, grid) {
-  //Remembering how functions work, add in pacman, and the grid because things happen within the grid
+  playAudio(_death.default);
   document.removeEventListener('keydown', function (e) {
     return pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
   });
   gameBoard.showGameStatus(gameWin);
-  clearInterval(timer);
+  clearInterval(timer); // Show startbutton
+
   startButton.classList.remove('hide');
 }
 
@@ -653,7 +680,8 @@ function checkCollision(pacman, ghosts) {
 
   if (collidedGhost) {
     if (pacman.powerPill) {
-      gameBoard.removeObject(collidedGhost.pos[(_setup.OBJECT_TYPE.GHOST, _setup.OBJECT_TYPE.SCARED, collidedGhost.name)]);
+      playAudio(_eat_ghost.default);
+      gameBoard.removeObject(collidedGhost.pos, [_setup.OBJECT_TYPE.GHOST, _setup.OBJECT_TYPE.SCARED, collidedGhost.name]);
       collidedGhost.pos = collidedGhost.startPos;
       score += 100;
     } else {
@@ -665,16 +693,58 @@ function checkCollision(pacman, ghosts) {
 }
 
 function gameLoop(pacman, ghosts) {
-  gameBoard.moveCharacter(pacman);
-  checkCollision(pacman, ghosts);
+  // 1. Move Pacman
+  gameBoard.moveCharacter(pacman); // 2. Check Ghost collision on the old positions
+
+  checkCollision(pacman, ghosts); // 3. Move ghosts
+
   ghosts.forEach(function (ghost) {
     return gameBoard.moveCharacter(ghost);
-  });
-  checkCollision(pacman, ghosts);
+  }); // 4. Do a new ghost collision check on the new positions
+
+  checkCollision(pacman, ghosts); // 5. Check if Pacman eats a dot
+
+  if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.DOT)) {
+    playAudio(_munch.default);
+    gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.DOT]); // Remove a dot
+
+    gameBoard.dotCount--; // Add Score
+
+    score += 10;
+  } // 6. Check if Pacman eats a power pill
+
+
+  if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.PILL)) {
+    playAudio(_pill.default);
+    gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.PILL]);
+    pacman.powerPill = true;
+    score += 50;
+    clearTimeout(powerPillTimer);
+    powerPillTimer = setTimeout(function () {
+      return pacman.powerPill = false;
+    }, POWER_PILL_TIME);
+  } // 7. Change ghost scare mode depending on powerpill
+
+
+  if (pacman.powerPill !== powerPillActive) {
+    powerPillActive = pacman.powerPill;
+    ghosts.forEach(function (ghost) {
+      return ghost.isScared = pacman.powerPill;
+    });
+  } // 8. Check if all dots have been eaten
+
+
+  if (gameBoard.dotCount === 0) {
+    gameWin = true;
+    gameOver(pacman, gameGrid);
+  } // 9. Show new score
+
+
+  scoreTable.innerHTML = score;
 }
 
 function startGame() {
-  //This does not require paramiters a game start running\
+  playAudio(_game_start.default);
   gameWin = false;
   powerPillActive = false;
   score = 0;
@@ -685,15 +755,16 @@ function startGame() {
   document.addEventListener('keydown', function (e) {
     return pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
   });
-  var ghosts = [new _Ghost.default(5, 188, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.BLINKY), new _Ghost.default(4, 209, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.PINKY), new _Ghost.default(3, 230, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.INKY), new _Ghost.default(2, 251, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.CLYDE)];
+  var ghosts = [new _Ghost.default(5, 188, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.BLINKY), new _Ghost.default(4, 209, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.PINKY), new _Ghost.default(3, 230, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.INKY), new _Ghost.default(2, 251, _ghostmoves.randomMovement, _setup.OBJECT_TYPE.CLYDE)]; // Gameloop
+
   timer = setInterval(function () {
     return gameLoop(pacman, ghosts);
   }, GLOBAL_SPEED);
-} //initalize Game
+} // Initialize game
 
 
 startButton.addEventListener('click', startGame);
-},{"./setup":"setup.js","./ghostmoves":"ghostmoves.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js","./Ghost":"Ghost.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./setup":"setup.js","./ghostmoves":"ghostmoves.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js","./Ghost":"Ghost.js","./sounds/munch.wav":"sounds/munch.wav","./sounds/pill.wav":"sounds/pill.wav","./sounds/game_start.wav":"sounds/game_start.wav","./sounds/death.wav":"sounds/death.wav","./sounds/eat_ghost.wav":"sounds/eat_ghost.wav"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -721,7 +792,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56262" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56316" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

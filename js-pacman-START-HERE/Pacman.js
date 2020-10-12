@@ -1,7 +1,7 @@
-import {OBJECT_TYPE, DIRECTIONS} from './setup';
+import { OBJECT_TYPE, DIRECTIONS } from './setup';
 
-class Pacman{
-  constructor(speed, startPos){
+class Pacman {
+  constructor(speed, startPos) {
     this.pos = startPos;
     this.speed = speed;
     this.dir = null;
@@ -10,50 +10,54 @@ class Pacman{
     this.rotation = true;
   }
 
-  shouldMove(){
-    if(!this.dir)return false;
+  shouldMove() {
+    // Don't move before a key is pressed
+    if (!this.dir) return;
 
-    if(this.timer === this.speed){
+    if (this.timer === this.speed) {
       this.timer = 0;
       return true;
     }
-  this.timer++
+    this.timer++;
   }
 
-  getNextMove(objectExist){
+  getNextMove(objectExist) {
     let nextMovePos = this.pos + this.dir.movement;
+    // Do we collide with a wall?
+    if (
+      objectExist(nextMovePos, OBJECT_TYPE.WALL) ||
+      objectExist(nextMovePos, OBJECT_TYPE.GHOSTLAIR)
+    ) {
+      nextMovePos = this.pos;
+    }
 
-    if (objectExist(nextMovePos, OBJECT_TYPE.WALL) || 
-        objectExist(nextMovePos, OBJECT_TYPE.GHOSTLAIR)
-        ){
-          nextMovePos = this.pos;
-        }
-      return {nextMovePos, direction: this.dir};
-      }
+    return { nextMovePos, direction: this.dir };
+  }
 
-      makeMove(){
-        const classesToRemove = [OBJECT_TYPE.PACMAN];
-        const classesToAdd = [OBJECT_TYPE.PACMAN];
+  makeMove() {
+    const classesToRemove = [OBJECT_TYPE.PACMAN];
+    const classesToAdd = [OBJECT_TYPE.PACMAN];
 
-        return {classesToRemove, classesToAdd}
-      }
+    return { classesToRemove, classesToAdd };
+  }
 
-      setNewPos(nextMovePos){
-        this.pos = nextMovePos;
-      }
-      handleKeyInput(e, objectExist){
-        let dir;
-        
+  setNewPos(nextMovePos) {
+    this.pos = nextMovePos;
+  }
 
-        if(e.keyCode >= 37 && e.keyCode <=40){//We might be able to add wasd and insert it here along with in the set up. Look at key codes when this is done and see if it plays nice.
-          dir = DIRECTIONS[e.key]
-        }else{
-          return;
-        }
+  handleKeyInput = (e, objectExist) => {
+    let dir;
 
-        const nextMovePos = this.pos + dir.movement;
-        if (objectExist(nextMovePos, OBJECT_TYPE.WALL))return;
-        this.dir = dir;
-      };
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
+      dir = DIRECTIONS[e.key];
+    } else {
+      return;
+    }
+
+    const nextMovePos = this.pos + dir.movement;
+    if (objectExist(nextMovePos, OBJECT_TYPE.WALL)) return;
+    this.dir = dir;
+  };
 }
+
 export default Pacman;
